@@ -1,0 +1,16 @@
+[package]
+name = "aoi"
+version = "0.0.0"
+edition = "2021"
+authors = ["kanarus <kanarus786@gmail.com>"]
+description = "struct based web framework"
+documentation = "https://docs.rs/aoi/"
+homepage = "https://crates.io/crates/aoi"
+repository = "https://github.com/kana-rus/aoi"
+readme = "../README.md"
+keywords = ["struct", "async", "web", "server", "framework"]
+categories = ["web-programming::http-server"]
+license = "MIT"
+
+[dependencies]
+aoi_macros = { version = "0.0.0", path = "../macros" }

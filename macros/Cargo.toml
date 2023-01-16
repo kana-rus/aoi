@@ -1,0 +1,17 @@
+[package]
+name = "aoi_macros"
+version = "0.0.0"
+edition = "2021"
+authors = ["kanarus <kanarus786@gmail.com>"]
+description = "macros for aoi"
+keywords = ["aoi", "web", "framework", "macro"]
+categories = ["rust-patterns"]
+license = "MIT"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+proc-macro2 = "1.0"
+quote = "1.0"
+syn = { version = "1.0", features = ["full"] }
