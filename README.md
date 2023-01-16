@@ -2,12 +2,12 @@
     <h1>aoi - Pre Development Draft</h1>
 </div>
 
-aoi *- [葵] name of popular plant in Japan -* is **struct based web framework**.\
+aoi *- [葵] name of popular plant in Japan -* will be **struct based web framework**.\
 This is pre development draft.
 
 <br/>
 
-## Features
+## Features ( under plannning )
 - **struct based architecture** where a server is a struct
 - actively using **macros**
 
