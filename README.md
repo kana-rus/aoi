@@ -13,7 +13,7 @@ This is pre development draft.
 
 <br/>
 
-## Examples ( under planning )
+## Examples ( under planning; DOESN'T WORK )
 
 ### simple server
 ```rust
