@@ -2,7 +2,7 @@
     <h1>aoi - Pre Development Draft</h1>
 </div>
 
-aoi *- [葵] popular plant in Japan -* is **struct based web framework**.\
+aoi *- [葵] name of popular plant in Japan -* is **struct based web framework**.\
 This is pre development draft.
 
 <br/>
@@ -36,7 +36,7 @@ $ curl http://localhost:3000
 Hello!
 ```
 
-### handle db, path param, req body
+### handle db, path params, request body
 ```rust
 struct User {
     id:   u64,
@@ -119,6 +119,18 @@ RootServer {
 UserServer {
     conn: ConnectionPool<Postgres>,
 } {
+    #[GET /{id:u64}]
+    {
+        let user = SQL![
+            SELECT id, name FROM users
+            WHERE id = $id
+        ; as User]
+            .fetch_one(&self.conn)
+            .await?;
+
+        self.OK(user)
+    }
+
     #[POST /, body: CreateUser]
     {
         let CreateUser { name, password } = body;
@@ -131,19 +143,6 @@ UserServer {
             .await?;
 
         self.Created(created_user)
-    }
-
-    #[GET /{id:u64}]
-    {
-        let user = SQL![
-            SELECT id, name
-            FROM users
-            WHERE name = $name AND password = $password
-        ; as User]
-            .fetch_one(&self.conn)
-            .await?;
-
-        self.OK(user)
     }
 }
 
