@@ -1,4 +1,5 @@
 use proc_macro2::Ident;
+use quote::ToTokens;
 use syn::{ItemStruct, ItemImpl, token, Block, ItemFn, punctuated::Punctuated, Type};
 
 mod parse;
@@ -21,6 +22,11 @@ pub(super) struct ServerInput {
     }
         enum ServerFieldType {
             // empty now
+        }
+        impl ToTokens for ServerFieldType {
+            fn to_tokens(&self, tokens: &mut proc_macro2::TokenStream) {
+                todo!() //
+            }
         }
     enum ServerImpl {
         Util(
