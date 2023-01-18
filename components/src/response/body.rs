@@ -2,7 +2,7 @@ use std::borrow::Cow;
 
 pub struct Body {
     media_type: MediaType,
-    content:    Cow<'static, str>,
+    pub(crate) content: Cow<'static, str>,
 }
 #[allow(non_camel_case_types)]
 pub enum MediaType {
@@ -37,6 +37,15 @@ impl Body {
     pub fn content_length(&self) -> usize {
         self.content.len()
     }
+}
+impl MediaType {
+    pub(crate) fn as_response_content_type(&self) -> &'static str {
+        match self {
+            Self::application_json => "application/json; charset=UTF-8",
+            Self::text_html  => "text/html; charset=UTF-8",
+            Self::text_plain => "text/plain; cgarset=UTF-8",
+        }
+    } 
 }
 
 pub trait Content {
