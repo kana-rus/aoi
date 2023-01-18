@@ -13,4 +13,5 @@ categories = ["web-programming::http-server"]
 license = "MIT"
 
 [dependencies]
+aoi_components = { version = "0.0.0", path = "../components" }
 aoi_macros = { version = "0.0.0", path = "../macros" }

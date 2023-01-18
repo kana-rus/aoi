@@ -1,9 +1,8 @@
-mod router;
-mod components;
+pub mod server;
+pub mod router;
+pub mod result;
+pub mod response;
 
-struct MyServer {}
-impl MyServer {}
-
-trait Server 
-
-
+pub mod components {
+    pub use aoi_components::*;
+}
