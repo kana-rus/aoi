@@ -9,7 +9,7 @@ pub use status::Status;
 use crate::{header::HeaderKey, response::body::MediaType, time::now_fmt};
 
 pub struct Response {
-    pub(crate) additional_headers: String,
+    pub additional_headers: String,
     pub status: Status,
     pub body:   Option<Body>,
 } impl Response {

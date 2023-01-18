@@ -4,10 +4,12 @@ use syn::{ItemStruct, ItemImpl, token, Block, ItemFn, punctuated::Punctuated, Ty
 
 mod parse;
 mod interpret;
+mod build;
 
 pub(super) struct Server {
     instance: ItemStruct,
     impls:    ItemImpl,
+    handlers: Vec<Handler>,
 }
 
 pub(super) struct ServerInput {
@@ -29,47 +31,46 @@ pub(super) struct ServerInput {
             }
         }
     enum ServerImpl {
-        Util(
-            ItemFn
-        ),
-        Handler {
+        Util(ItemFn),
+        Handler(Handler),
+    }
+        struct Handler {
             req:      RequestInfo,
             proccess: Box<Block>,
-        },
-    }
-        struct RequestInfo {
-            method: Method,
-            path:   Path,
-            _semi_colon:  Option<token::Semi>,
-            request_body: Option<RequestBody>,
         }
-            enum Method {
-                GET,
-                POST,
-                PATCH,
-                DELETE,
+            struct RequestInfo {
+                method: Method,
+                path:   Path,
+                _semi_colon:  Option<token::Semi>,
+                request_body: Option<RequestBody>,
             }
-                mod methods {
-                    use syn::custom_keyword;
-                    custom_keyword!(GET);
-                    custom_keyword!(POST);
-                    custom_keyword!(PATCH);
-                    custom_keyword!(DELETE);
+                enum Method {
+                    GET,
+                    POST,
+                    PATCH,
+                    DELETE,
                 }
-            struct RequestBody {
-                name:   Ident,
-                _colon: token::Colon,
-                ty:     Type,
-            }
-            struct Path(
-                Punctuated<PathSection, token::Div>
-            );
-                enum PathSection {
-                    Str(Ident),
-                    Param {
-                        _bracket: token::Brace,
-                        name:   Ident,
-                        _colon: token::Colon,
-                        ty:     Type,
-                    },
+                    mod methods {
+                        use syn::custom_keyword;
+                        custom_keyword!(GET);
+                        custom_keyword!(POST);
+                        custom_keyword!(PATCH);
+                        custom_keyword!(DELETE);
+                    }
+                struct RequestBody {
+                    name:   Ident,
+                    _colon: token::Colon,
+                    ty:     Type,
                 }
+                struct Path(
+                    Punctuated<PathSection, token::Div>
+                );
+                    enum PathSection {
+                        Str(Ident),
+                        Param {
+                            _bracket: token::Brace,
+                            name:   Ident,
+                            _colon: token::Colon,
+                            ty:     Type,
+                        },
+                    }

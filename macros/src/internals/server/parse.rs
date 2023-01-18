@@ -65,10 +65,10 @@ impl Parse for ServerImpl {
          || input.peek3(methods::PATCH)
          || input.peek3(methods::DELETE)
         ) {
-            Ok(Self::Handler {
+            Ok(Self::Handler( Handler {
                 req:      input.parse()?,
                 proccess: input.parse()?,
-            })
+            }))
         } else {
             Ok(Self::Util(
                 input.parse()?

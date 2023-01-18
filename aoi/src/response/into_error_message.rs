@@ -1,5 +1,3 @@
-use std::borrow::Cow;
-
 use aoi_components::response::Body;
 
 pub trait ErrorMessage {
@@ -7,7 +5,7 @@ pub trait ErrorMessage {
 }
 impl ErrorMessage for Option<&'static str> {
     fn as_error_message(self) -> Option<Body> {
-        self.map(|str| Cow::Borrowed(str))
+        self.map(|str| Body::text(str))
     }
 }
 impl ErrorMessage for &'static str {

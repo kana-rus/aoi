@@ -1,24 +1,23 @@
-use aoi_components::response::{Response, Content, Status};
-
-use crate::{response::{IntoOK, ErrorMessage}, result::HandleResult};
+use aoi_components::response::{Response, Status};
+use crate::{response::{IntoOK, ErrorMessage, IntoCreated}, result::HandleResult};
 
 pub trait Server {
     fn OK<B: IntoOK<From>, From>(&self, body: B) -> HandleResult {
-        Ok(Self {
+        Ok(Response {
             additional_headers: String::new(),
             status:             Status::OK,
             body:               body.into_ok()?,
         })
     }
     fn Created<Content: IntoCreated<From>, From>(&self, content: Content) -> HandleResult {
-        Ok(Self {
+        Ok(Response {
             additional_headers: String::new(),
             status:             Status::Created,
-            body:               Some(body.into_created()?),
+            body:               Some(content.into_created()?),
         })
     }
-    fn NoContent(&self, ) -> HandleResult {
-        Ok(Self {
+    fn NoContent(&self) -> HandleResult {
+        Ok(Response {
             additional_headers: String::new(),
             status:             Status::Created,
             body:               None,

@@ -1,5 +1,6 @@
 mod into_ok;
 mod into_created;
+mod json_response;
 mod into_error_message;
 
 pub use into_ok::IntoOK;

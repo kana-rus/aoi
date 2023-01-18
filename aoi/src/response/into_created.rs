@@ -1,23 +1,28 @@
-pub trait IntoCreated {fn into_created(self) -> Result<Body>;}
+use aoi_components::{
+    json::JSON,
+    response::{Body, Response},
+};
 
-impl<J: for <'j> JSON<'j>> IntoCreated for J {
-    fn into_created(self) -> Result<Body> {
-        Ok(Body::application_json(Cow::Owned(self.ser()?)))
+pub trait IntoCreated<Label> {fn into_created(self) -> Result<Body, Response>;}
+
+impl<J: for <'j> JSON<'j>> IntoCreated<()> for J {
+    fn into_created(self) -> Result<Body, Response> {
+        Ok(Body::json(self.ser()?))
     }
 }
-impl<J: for <'j> JSON<'j>> IntoCreated for Result<J> {
-    fn into_created(self) -> Result<Body> {
-        Ok(Body::application_json(Cow::Owned(self?.ser()?)))
+impl<J: for <'j> JSON<'j>> IntoCreated<Result<(), Response>> for Result<J, Response> {
+    fn into_created(self) -> Result<Body, Response> {
+        Ok(Body::json(self?.ser()?))
     }
 }
 
-impl IntoCreated for Body {
-    fn into_created(self) -> Result<Body> {
+impl IntoCreated<Body> for Body {
+    fn into_created(self) -> Result<Body, Response> {
         Ok(self)
     }
 }
-impl IntoCreated for Result<Body> {
-    fn into_created(self) -> Result<Body> {
+impl IntoCreated<Result<Body, Response>> for Result<Body, Response> {
+    fn into_created(self) -> Result<Body, Response> {
         self
     }
 }
