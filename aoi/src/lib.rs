@@ -1,6 +1,7 @@
 pub mod server;
 pub mod router;
 pub mod result;
+pub mod handler;
 pub mod response;
 
 pub mod components {
