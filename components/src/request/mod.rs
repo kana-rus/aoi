@@ -1,5 +1,6 @@
-mod buffer;
-mod range;
+pub mod buffer;
+pub mod range;
+pub mod parse;
 
 use crate::{
     json::JSON,
@@ -17,10 +18,10 @@ pub struct Request<J: for <'j> JSON<'j>> {
 
     pub params:  RangeList,
     pub queries: RangeMap,
-    pub body:    Option<J>,
     pub headers: HeaderRangeMap,
+    pub body:    Option<J>,
 } impl<J: for <'j> JSON<'j>> Request<J> {
-    pub fn query<'ctx, Q: Query<'ctx>>(&'ctx self, key: &str) -> Result<Q, Response> {
+    pub fn query<'req, Q: Query<'req>>(&'req self, key: &str) -> Result<Q, Response> {
         Query::parse(
             self.queries
                 .read_match_part_of_buffer(key, &self.buffer)
@@ -31,7 +32,6 @@ pub struct Request<J: for <'j> JSON<'j>> {
                 })?
         )
     }
-
     /// Get value of the request header if it exists. key: &'static str | Header
     pub fn header<K: HeaderKey>(&self, key: K) -> Result<&str, Response> {
         let key_str = key.as_key_str();
