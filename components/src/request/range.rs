@@ -6,7 +6,7 @@ use super::buffer::Buffer;
 pub struct BufRange(
     usize, usize
 ); impl BufRange {
-    pub(crate) fn new(start: usize, end: usize) -> Self {
+    pub fn new(start: usize, end: usize) -> Self {
         Self(start, end)
     }
     pub(crate) fn as_range(&self) -> RangeInclusive<usize> {
@@ -59,13 +59,13 @@ pub struct RangeList {
     count: usize,
     list:  [Option<BufRange>; RANGE_LIST_SIZE],
 } impl RangeList {
-    pub(crate) fn new() -> Self {
+    pub fn new() -> Self {
         Self {
             count: 0,
             list:  [None, None],
         }
     }
-    pub(crate) fn push(&mut self, range: BufRange) -> Result<(), Response> {
+    pub fn push(&mut self, range: BufRange) -> Result<(), Response> {
         (self.count < RANGE_LIST_SIZE)
             ._else(|| Response {
                 status: Status::NotImplemented,

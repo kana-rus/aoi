@@ -13,4 +13,13 @@ pub enum Method {
             other => panic!("Invalid request method: {other}")
         }
     }
+
+    pub fn len(&self) -> usize {
+        match self {
+            Self::GET    => 3,
+            Self::POST   => 4,
+            Self::PATCH  => 5,
+            Self::DELETE => 6,
+        }
+    }
 }
