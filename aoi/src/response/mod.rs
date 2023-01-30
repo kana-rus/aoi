@@ -9,6 +9,7 @@ pub use into_created::IntoCreated;
 pub use into_error_message::ErrorMessage;
 use crate::result::HandleResult;
 
+#[allow(non_snake_case)]
 pub trait Responder {
     fn OK<B: IntoOK<From>, From>(&self, body: B) -> HandleResult {
         Ok(Response {

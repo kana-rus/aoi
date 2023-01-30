@@ -6,7 +6,7 @@ use crate::{result::Result, handler::Handler};
 use self::{node::Node, pattern::Pattern};
 
 #[allow(non_snake_case)]
-pub(crate) struct Router {
+pub struct Router {
     GET:    Node,
     POST:   Node,
     PATCH:  Node,
@@ -21,7 +21,7 @@ pub(crate) struct Router {
         }
     }
 
-    pub(crate) fn register(&mut self,
+    pub fn register(&mut self,
         method:       Method,
         path_pattern: &'static str /* already validated */,
         handler:      Handler,
@@ -42,9 +42,7 @@ pub(crate) struct Router {
         };
         
         tree.register(path, handler, err_msg)
-    }
-
-    pub(crate) fn search<'req>(&self,
+    } fn search<'req>(&self,
         method:       Method,
         request_path: &'req str,
     ) -> Result<(

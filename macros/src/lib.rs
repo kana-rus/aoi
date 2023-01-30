@@ -22,10 +22,3 @@ pub fn consume_struct(_: TokenStream, derived_struct: TokenStream) -> TokenStrea
         .unwrap_or_else(|err| err.into_compile_error())
         .into()
 }
-
-#[proc_macro_attribute]
-pub fn change_extern_crate_to_use_postlude(_: TokenStream, serde_derives: TokenStream) -> TokenStream {
-    internals::change_extern_crate_to_use_postlude(serde_derives.into())
-        .unwrap_or_else(|err| err.into_compile_error())
-        .into()
-}
