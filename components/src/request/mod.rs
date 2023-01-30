@@ -10,13 +10,12 @@ use crate::{
 };
 use self::{
     buffer::Buffer,
-    range::{RangeList, RangeMap, HeaderRangeMap},
+    range::{RangeMap, HeaderRangeMap},
 };
 
 pub struct Request<J: for <'j> JSON<'j>> {
     pub buffer:  Buffer,
 
-    pub params:  RangeList,
     pub queries: RangeMap,
     pub headers: HeaderRangeMap,
     pub body:    Option<J>,

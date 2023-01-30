@@ -1,5 +1,5 @@
 use proc_macro2::TokenStream;
-use syn::{Result, parse2, ItemStruct, ItemConst, parse::Parse, Expr};
+use syn::{Result, parse2, ItemStruct};
 use quote::quote;
 
 trait Build {
@@ -26,7 +26,6 @@ pub(super) fn derive_json(serde_derived_struct: TokenStream) -> Result<TokenStre
         #serde_derived_struct
     })
 }
-
 pub(super) fn consume_struct(serde_derived_struct: TokenStream) -> Result<TokenStream> {
     let _: ItemStruct = parse2(serde_derived_struct)?;
     Ok(TokenStream::new())

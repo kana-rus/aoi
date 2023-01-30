@@ -24,7 +24,7 @@ pub struct RangeMap(
     pub(crate) fn insert(&mut self, index: usize, key: BufRange, value: BufRange) {
         self.0[index] = Some((key, value))
     }
-    pub(crate) fn read_match_part_of_buffer<'map, 'key, 'buf>(
+    pub fn read_match_part_of_buffer<'map, 'key, 'buf>(
         &'map self,
         key:    &'key str,
         buffer: &'buf Buffer,
@@ -88,7 +88,7 @@ pub struct RangeList {
 pub struct HeaderRangeMap(
     Vec<(BufRange, BufRange)>
 ); impl HeaderRangeMap {
-    pub(crate) fn get<'buf, K: HeaderKey>(&self, key: K, buffer: &'buf Buffer) -> Option<&'buf str> {
+    pub fn get<'buf, K: HeaderKey>(&self, key: K, buffer: &'buf Buffer) -> Option<&'buf str> {
         let key = key.as_key_str();
         for (key_range, value_range) in &self.0 {
             if buffer.read_str(key_range) == key {
@@ -98,14 +98,14 @@ pub struct HeaderRangeMap(
         None
     }
 
-    pub(crate) fn new() -> Self {
+    pub fn new() -> Self {
         Self(Vec::new())
     }
-    pub(crate) fn push(&mut self, key_range: BufRange, value_range: BufRange) {
+    pub fn push(&mut self, key_range: BufRange, value_range: BufRange) {
         self.0.push((key_range, value_range))
     }
 
-    pub(crate) fn debug_fmt_with(&self, buffer: &Buffer) -> String {
+    pub fn debug_fmt_with(&self, buffer: &Buffer) -> String {
         self.0.iter().fold(
             String::new(),
             |it, (key_range, value_range)| {

@@ -2,12 +2,12 @@ use std::{future::Future, pin::Pin};
 use crate::result::HandleResult;
 use aoi_components::request::{
     buffer::Buffer,
-    range::{RangeMap, HeaderRangeMap, RangeList},
+    range::{RangeMap, HeaderRangeMap},
 };
 
 /// aoi's internal handler type
 pub(crate) type Handler = Box<
-    dyn Fn(Buffer, RangeList, RangeMap, HeaderRangeMap, Option<String>)
+    dyn Fn(Buffer, RangeMap, HeaderRangeMap, Option<String>)
         -> Pin<Box<dyn Future<Output=HandleResult> + Send >>
     + Send + Sync
 >;
