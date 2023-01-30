@@ -22,8 +22,8 @@ pub(super) fn derive_json(serde_derived_struct: TokenStream) -> Result<TokenStre
         impl<'j> aoi::components::json::JSON<'j> for #ident {}
 
         #[derive(serde::Serialize, serde::Deserialize)]
-        #[aoi::macros::consume_struct]
-        #[aoi::macros::change_extern_crate_to_use_postlude]
+        #[aoi::__private::consume_struct]
+        #[aoi::__private::change_extern_crate_to_use_postlude]
         #serde_derived_struct
     })
 }

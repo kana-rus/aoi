@@ -17,6 +17,10 @@ pub mod macros {
     pub use aoi_macros::{
         JSON,
         server,
+    };
+}
+pub mod __private {
+    pub use aoi_macros::{
         consume_struct,
         change_extern_crate_to_use_postlude,
     };
