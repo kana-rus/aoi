@@ -10,10 +10,10 @@ struct User {
 
 struct MyServer;
 impl Responder for MyServer {
-    // no middleware or something
+    // no middleware or something in this example
 }
 impl MyServer {
-    // `_` hust after `get` is `/`
+    // `_` just after `get` is `/`
 
     async fn handle_get_(&self) -> HandleResult {
         self.OK("Hello!")
